@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 _site
 .DS_Store
 .jekyll
@@ -8,3 +9,14 @@ Gemfile
 Gemfile.lock
 node_modules
 package.json
+=======
+# project
+_site
+.sass-cache
+.vagrant
+
+# general
+.DS_Store
+Thumbs.db
+ehthumbs.db
+>>>>>>> d561258c83a13af8a767ddf8e8c868aa24d466c5

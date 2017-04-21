@@ -1,9 +1,8 @@
 ---
-layout: single
+layout: post
 title:  Django desde cero
-date:   2017-03-19 19:00:01 +0200
-categories: [django, python]
-language: SP
+image: /img/container-tree-01.png
+tags: [random, exciting-stuff]
 ---
 
 1.Introducción, entorno, proyecto y aplicación

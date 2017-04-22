@@ -14,7 +14,7 @@ date: 2017-04-21 21:41:27
 **Objetivo:** Implementar una aplicación web con el framework **Django** desde cero, partiendo de la documentación oficial.
 
 
-**Django; ideas básicas:** Patrón MVC. Herencia en todos los niveles del patrón. Vistas basadas en classes (Class Based View). Modelo de datos y persistencia basado en las clases Modelo de la aplicación.
+**Django; ideas básicas:** Patrón MVC. Orientación a objetos en todos los niveles del patrón. Vistas basadas en classes (Class Based View). Modelo de datos y persistencia basado en las clases Modelo de la aplicación.
 
 ## Entorno
 Fedora Linux 25. Python 3.5. Django 1.11. Entorno de desarrollo virtual con venv.

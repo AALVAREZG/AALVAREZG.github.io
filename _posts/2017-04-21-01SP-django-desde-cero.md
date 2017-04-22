@@ -28,7 +28,7 @@ No se ha definido el objetivo de la aplicación. Designaremos con nombres genér
 El repositorio github del proyecto será el siguiente: [container repo](https://github.com/).
 
 ### Creando el proyecto **container**
-```bash
+```
 $ django-admin startproject container
 ```
 <img src="img/container-tree-01.png" width="400"
@@ -36,7 +36,7 @@ $ django-admin startproject container
 
 ### Creando la aplicación **cube**
 En el directorio raiz container (donde se encuentra el archivo manage.py) ejecutamos
-```bash
+```
 $ python manage.py startapp cube
 ```
 <img src="img/container-tree-02.png" width="400"
@@ -48,7 +48,7 @@ Inicialmente utilizaremos SQLite; por lo que nos bastará con la configuración 
 Dejaremos, igualmente, las aplicaciones instaladas por defecto con Django (admin, auth, contenttypes, sessions, messages y static files)
 
 Para inicializar la base de datos y generar las tablas necesarias de las distintas aplicaciones ejecutamos
-```bash
+```
 $ python manage.py migrate
 ```
 

@@ -30,7 +30,7 @@ El repositorio github del proyecto será el siguiente: [container repo](https://
 ```
 $ django-admin startproject container
 ```
-<img src="https://aalvarezg.github.io/img/container-tree-01.png" width="400"
+<img src="https://aalvarezg.github.io/img/container-tree-01.png" width="200"
  style="display: block; margin-left: auto; margin-right: auto;"/>
 
 ### Creando la aplicación **cube**

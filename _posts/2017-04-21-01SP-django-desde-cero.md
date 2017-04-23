@@ -11,8 +11,7 @@ date: 2017-04-21 21:41:27
 
 ## Introducción
 
-**Objetivo:** Implementar una aplicación web con el framework **Django** desde cero, partiendo de la documentación oficial.
-
+**Objetivo:** Implementar una aplicación web, desde cero, haciendo uso del framework **Django** a partir de la documentación oficial.
 
 **Django; ideas básicas:** Patrón MVC. Orientación a objetos en todos los niveles del patrón. Vistas basadas en classes (Class Based View). Modelo de datos y persistencia basado en las clases Modelo de la aplicación.
 
@@ -31,7 +30,7 @@ El repositorio github del proyecto será el siguiente: [container repo](https://
 ```
 $ django-admin startproject container
 ```
-<img src="img/container-tree-01.png" width="400"
+<img src="https://aalvarezg.github.io/img/container-tree-01.png" width="400"
  style="display: block; margin-left: auto; margin-right: auto;"/>
 
 ### Creando la aplicación **cube**
@@ -39,13 +38,13 @@ En el directorio raiz container (donde se encuentra el archivo manage.py) ejecut
 ```
 $ python manage.py startapp cube
 ```
-<img src="img/container-tree-02.png" width="400"
+<img src="https://aalvarezg.github.io/img/container-tree-02.png" width="400"
  style="display: block; margin-left: auto; margin-right: auto;"/>
 
 ### Configurando la base de datos
 Inicialmente utilizaremos SQLite; por lo que nos bastará con la configuración por defecto en el archivo container/settings.py
 
-Dejaremos, igualmente, las aplicaciones instaladas por defecto con Django (admin, auth, contenttypes, sessions, messages y static files)
+Igualmente mantenemos las aplicaciones instaladas por defecto con Django (admin, auth, contenttypes, sessions, messages y static files)
 
 Para inicializar la base de datos y generar las tablas necesarias de las distintas aplicaciones ejecutamos
 ```

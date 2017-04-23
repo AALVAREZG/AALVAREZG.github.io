@@ -18,7 +18,7 @@ date: 2017-04-21 21:41:27
 
 ## Entorno
 Fedora Linux 25. Python 3.5. Django 1.11. Entorno de desarrollo virtual con venv.
-[link]({{ site.baseurl }}{% link https://elpesodeloslunes.wordpress.com/2017/04/08/entornos-de-desarrollo-virtuales-con-python-3/ %}).
+[link](https://elpesodeloslunes.wordpress.com/2017/04/08/entornos-de-desarrollo-virtuales-con-python-3/).
 
 ## Proyecto y aplicación.
 No se ha definido el objetivo de la aplicación. Designaremos con nombres genéricos al proyecto (al que llamaremos **container**) y a la aplicación (a la que llamaremos **cube**), por analogía con la descripción que ofrece la documentación oficial de Django. 

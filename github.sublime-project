@@ -1,0 +1,20 @@
+{
+    "folders":
+    [
+        {
+            "follow_symlinks": true,
+            "path": "/home/alvarez/desarrollo/github.io/AALVAREZG.github.io"
+        }
+    ],
+
+    "settings":
+    {
+        "Jekyll":
+        {
+            "jekyll_posts_path": "/home/alvarez/desarrollo/github.io/AALVAREZG.github.io/_posts",
+            "jekyll_drafts_path": "/home/alvarez/desarrollo/github.io/AALVAREZG.github.io/_drafts",
+            "jekyll_uploads_path": "/home/alvarez/desarrollo/github.io/AALVAREZG.github.io/uploads",
+            "jekyll_templates_path": "/home/alvarez/desarrollo/github.io/AALVAREZG.github.io/_templates",
+        }
+    }
+}

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 ]
 ```
 
+
 #### Configurando el sistema gestor de base de datos
 Inicialmente utilizaremos SQLite, la base de datos instalada por defecto en Django. Bastará con dejar la configuración ya establecida en el archivo container/settings.py
 

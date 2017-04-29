@@ -71,7 +71,9 @@ Por último trasladamos los cambios a la base de datos ejecutando el comando:
 ```
 $ python manage.py migrate
 ```
-### Managers.
+<a name="part2"></a> 
+
+### Managers.  
 Vamos a pararnos aquí un poco, inicialmente diremos que los **Managers**  suministran a los modelos las operaciones de consulta de la base de datos.
 
 ¿Cómo? Haciendo uso de relaciones de herencia propias de la metodología orientada a objetos. A grandes rasgos, Django implementa una clase Manager() definida como una interfaz donde se implementan  operaciones de consulta “típicas” a una base de datos (como pueden ser extraer todos los objetos de una tabla).

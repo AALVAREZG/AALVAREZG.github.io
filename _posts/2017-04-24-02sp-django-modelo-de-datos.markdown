@@ -19,18 +19,15 @@ Llegados a este punto ya deberíamos tener una idea básica de lo que queremos i
 
 Estos ficheros podrían ser datasets que trataríamos con la excelente libreria **python-pandas** para extraer datos relevantes de los mismos.... pero será otra historia, vamos paso a paso.
 
-En una implementación inicial, nuestro modelo quedaría de la forma siguiente:
+Vamos a simplificar al máximo nuestro modelo. Esto nos facilitará la vida para entender los apartados siguientes. Inicialmente, implementamos el modelo de la forma siguiente:
 
 ```python
 class Research (models.Model):
+	description = models.CharField(max_length=150)
 	date_time = models.DateField()
-	ip_address = models.CharField(max_length=30)
-	system = models.CharField(max_length=40)
-	browser = models.CharField(max_length=30)
-	input_file = models.FileField(upload_to='uploads/%Y%m%d%h%M%s/')
-	output_file = models.CharField(max_length=50)
+	
 ```
-En principo solo se implementa una clase (tabla), a la que llamaremos Research, con seis campos que hemos instanciado con su correspondiente tipo de datos (DateField, CharField y FileField). Django utilizará el tipo de datos asociado a cada campo para tres cosas:
+En principo solo se realiza una clase (tabla), a la que llamaremos Research, con dos campos que hemos instanciado con su correspondiente tipo de datos (CharField y DateField). Django utilizará el tipo de datos asociado a cada campo para tres cosas:
 
 1. Determinar el tipo de datos que almacenará el campo en la base de datos.
 2. El widget HTML que se usará por defecto cuando se renderize el campo en un formulario. **(~Aquí me surge la siguiente duda ¿No supone esto cierto acoplamiento entre las capas Modelo y Vista? _Mas adelante lo comprobaremos_~)**
@@ -73,6 +70,98 @@ Por último trasladamos los cambios a la base de datos ejecutando el comando:
 
 ```
 $ python manage.py migrate
+```
+### Managers.
+Vamos a pararnos aquí un poco, inicialmente diremos que los **Managers**  suministran a los modelos las operaciones de consulta de la base de datos.
+
+¿Cómo? Haciendo uso de relaciones de herencia propias de la metodología orientada a objetos. A grandes rasgos, Django implementa una clase Manager() definida como una interfaz donde se implementan  operaciones de consulta “típicas” a una base de datos (como pueden ser extraer todos los objetos de una tabla).
+    
+Cada vez que se crea un Modelo, por defecto Django asigna al mismo la interfaz Manager() de forma que esta nueva clase que define el Modelo pueda hacer uso de las operaciones de consulta definidas en dicha interfaz.
+
+Así, nuestra clase hereda por defecto un atributo llamado **objects** que podemos utilizar para instanciar objetos desde la base de datos.
+
+Veamos su funcionamiento con el siguente código autoexplicativo haciendo uso del **shell de Django**
+
+[Django Docs](https://docs.djangoproject.com/en/1.11/intro/tutorial02/#playing-with-the-api)
+
+```bash
+$ python manage.py shell
+Python 3.5.2 (default, Sep 14 2016, 11:28:32) 
+[GCC 6.2.1 20160901 (Red Hat 6.2.1-1)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+##Primero importamos nuestro modelo y las funciones necesarias
+>>> from cube.models import Research
+>>> from django.utils import timezone
+##Instanciamos un nuevo objeto Research y lo insertamos en la base de datos
+>>> r = Research(description="test01", date_time=timezone.now())
+>>> r.save()
+>>> r.id
+1
+##Seguidamente hacemos uso del atributo objects para consultar la base de datos. En este caso extremos todos los objetos del tipo Research
+>>> Research.objects.all()
+<QuerySet [<Research: Research object>]>
+## o el objeto Research con id=1 
+>>> Research.objects.get(pk=1)
+<Research: Research object>
+```
+Por supuesto, podríamos crear _nuestros propios Managers_ heredando de los ya existentes, ampliando o modificando, si nuestras necesidades de consulta no están definidas por defecto.
+
+### Métodos 
+En las clases que definen nuestros Modelos podemos definir métodos (funciones) para mejorar su compresión o extaer información de los mismos que pudiera sernos útil.
+
+Por ejemplo, se recomienda definir el método __str__ para establecer  la representación que nos devuelve el Modelo al mostrar uno de sus objetos en consola. 
+
+Hemos visto que las consultas realizadas en el shell nos devuelven una representación de los objetos Research - Research: Research object - muy genérica que puede que no nos sea del todo útil >. Podemos cambiar esta situación definiendo en nuestro modelo el método __str__.
+
+```python
+def __str__(self):
+	return self.description
+```
+Ahora, nuestras consultas al shell son mucho más amigables.
+
+```bash
+>>> Research.objects.all()
+<QuerySet [<Research: test01>]>
+>>> r = Research.objects.get(pk=1)
+>>> r
+<Research: test01>
+```
+El método __str__ es predefinido de Python. Igualmente podemos añadir métodos personalizados, por ejemplo uno que nos devuelva si el estudio se ha realizado en los últimos 7 días. Nuestro modelo quedaría de la forma siguiente:
+
+```python
+import datetime
+from django.db import models
+from django.utils import timezone
+
+# Create your models here.
+
+class Research (models.Model):
+	description = models.CharField(default="test", max_length=150)
+	date_time = models.DateTimeField("Fecha Estudio")
+	
+	def __str__(self):
+		return self.description
+
+	def is_recent (self):
+		#Return true if research hans been executed in last 7 days 
+		return self.date_time >= timezone.now() - datetime.timedelta(days=7)
+
+```
+Si ejecutamos el nuevo método en el shell
+
+```bash
+$ python manage.py shell
+Python 3.5.2 (default, Sep 14 2016, 11:28:32) 
+[GCC 6.2.1 20160901 (Red Hat 6.2.1-1)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from cube.models import Research
+>>> r = Research.objects.get(pk=1)
+>>> r
+<Research: test01>
+>>> r.is_recent()
+True
 ```
 
 ---

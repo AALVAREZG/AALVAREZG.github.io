@@ -80,11 +80,12 @@ Vamos a pararnos aquí un poco, inicialmente diremos que los **Managers**  sumin
 
 A grandes rasgos:
 
-a) Existe definida en Django una clase llamada **Manager()** definida como una interfaz donde se implementan las operaciones de consulta “típicas” a una base de datos (como pueden ser extraer todos los objetos de una tabla).
+a) Existe definida en Django una clase llamada **Manager()** donde se implementan las operaciones de consulta “típicas” a una base de datos (como pueden ser extraer todos los objetos de una tabla).
     
 b) Cada vez que se crea un Modelo, Django asigna por defecto al mismo la interfaz Manager() de forma que esta nueva clase que define el Modelo pueda hacer uso de las operaciones de consulta definidas en dicha interfaz.
 
 Así, nuestra clase hereda por defecto un atributo llamado **objects** que podemos utilizar para instanciar objetos desde la base de datos.
+
 
 Veamos su funcionamiento con el siguente código autoexplicativo haciendo uso del **shell de Django**
 
@@ -110,15 +111,17 @@ Type "help", "copyright", "credits" or "license" for more information.
 ## o el objeto Research con id=1 
 >>> Research.objects.get(pk=1)
 <Research: Research object>
+
 ```
+
+El objeto objects solo es accesible desde la clase del Modelo, no desde sus instancias. En el ejemplo anterior sería incorrecta la llamada r.objects.
+
 Por supuesto, podríamos crear _nuestros propios Managers_ heredando de los ya existentes, ampliando o modificando, si nuestras necesidades de consulta no están definidas en la clase Manager().
 
 ### Métodos 
-En las clases que definen nuestros Modelos podemos definir métodos (funciones) para mejorar su compresión o extaer información de los mismos que pudiera sernos útil.
+En las clases que definen nuestros Modelos podemos definir **métodos**, que son funciones para mejorar la comprensión de los propios modelos o extaer información de ellos que pudiera sernos útil.
 
-Por ejemplo, se recomienda definir el método __str__ para establecer  la representación que nos devuelve el Modelo al mostrar uno de sus objetos en consola. 
-
-Hemos visto que las consultas realizadas en el shell nos devuelven una representación de los objetos Research muy genérica que pudiera no sernos del todo útil (- Research: Research object -). Podemos cambiar esta situación definiendo en nuestro modelo el método __str__.
+Por ejemplo, se recomienda definir el método __str__ para establecer  la representación que nos devuelve el Modelo al mostrar sus instancias en consola. Hemos visto que las consultas realizadas en el shell nos devuelven una representación de los objetos Research muy genérica que pudiera no sernos del todo útil (- Research: Research object -). Podemos cambiar esta situación definiendo en nuestro modelo el método __str__.
 
 ```python
 def __str__(self):

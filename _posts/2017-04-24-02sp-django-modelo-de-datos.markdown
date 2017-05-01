@@ -89,7 +89,7 @@ Así, nuestra clase hereda por defecto un atributo llamado **objects** que podem
 
 Veamos su funcionamiento con el siguente código autoexplicativo haciendo uso del **shell de Django**
 
-[Django Docs](https://docs.djangoproject.com/en/1.11/intro/tutorial02/#playing-with-the-api)
+[Django Docs - Shell de Django](https://docs.djangoproject.com/en/1.11/intro/tutorial02/#playing-with-the-api)
 
 ```bash
 $ python manage.py shell
@@ -119,9 +119,9 @@ El objeto objects solo es accesible desde la clase del Modelo, no desde sus inst
 Por supuesto, podríamos crear _nuestros propios Managers_ heredando de los ya existentes, ampliando o modificando, si nuestras necesidades de consulta no están definidas en la clase Manager().
 
 ### Métodos 
-En las clases que definen nuestros Modelos podemos definir **métodos**, que son funciones para mejorar la comprensión de los propios modelos o extaer información de ellos que pudiera sernos útil.
+En las clases que definen nuestros Modelos podemos definir **métodos** que son funciones para mejorar la comprensión de los propios modelos o extaer información de los mismos que pudiera sernos de utilidad.
 
-Por ejemplo, se recomienda definir el método __str__ para establecer  la representación que nos devuelve el Modelo al mostrar sus instancias en consola. Hemos visto que las consultas realizadas en el shell nos devuelven una representación de los objetos Research muy genérica que pudiera no sernos del todo útil (- Research: Research object -). Podemos cambiar esta situación definiendo en nuestro modelo el método __str__.
+Por ejemplo, en la documentación oficial de Django recomienda definir el método __str__ , entre otras cosas, para establecer  la representación que nos devuelve el Modelo al mostrar sus instancias en consola. Hemos visto que las consultas realizadas en el shell nos devuelven una representación de los objetos Research muy genérica que pudiera no sernos del todo útil (- Research: Research object -). Podemos cambiar este comportamiento definiendo en nuestro modelo el método __str__.
 
 ```python
 def __str__(self):

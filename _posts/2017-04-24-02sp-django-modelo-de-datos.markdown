@@ -9,9 +9,9 @@ date: 2017-04-23 20:59:54
 
 ## Filosofía del modelo de datos en Django
 
-Una de las características de Django que más me llamó la atención fue la utilización del llamado "DRY Principle" para la capa de persistencia. Se trata de definir el modelo de datos en un solo lugar y automaticamente derivar de ahí todo lo demás.
+Una de las características de Django que más me llamó la atención fue la aplicación del llamado "DRY Principle" para la capa de persistencia. Se trata de definir el modelo de datos en un solo lugar y automáticamente derivar de ahí todo lo demás.
 
-Veremos el alcance de esta implementación a lo largo del ejemplo.
+Veremos el alcance de este modelo en este y sucesivos posts.
 
 ## Definición del modelo de datos en nuestro proyecto.
 
@@ -19,7 +19,7 @@ Llegados a este punto ya deberíamos tener una idea básica de lo que queremos i
 
 Estos ficheros podrían ser datasets que trataríamos con la excelente libreria **python-pandas** para extraer datos relevantes de los mismos.... pero será otra historia, vamos paso a paso.
 
-Vamos a simplificar al máximo nuestro modelo. Esto nos facilitará la vida para entender los apartados siguientes. Inicialmente, implementamos el modelo de la forma siguiente:
+Vamos a simplificar al máximo nuestro modelo. Esto nos facilitará la vida para entender los apartados siguientes. Inicialmente, implementamos la clase que define nuestro modelo de la forma siguiente:
 
 ```python
 class Research (models.Model):
@@ -30,7 +30,7 @@ class Research (models.Model):
 En principo solo se realiza una clase (tabla), a la que llamaremos Research, con dos campos que hemos instanciado con su correspondiente tipo de datos (CharField y DateField). Django utilizará el tipo de datos asociado a cada campo para tres cosas:
 
 1. Determinar el tipo de datos que almacenará el campo en la base de datos.
-2. El widget HTML que se usará por defecto cuando se renderize el campo en un formulario. **(~Aquí me surge la siguiente duda ¿No supone esto cierto acoplamiento entre las capas Modelo y Vista? _Mas adelante lo comprobaremos_~)**
+2. El widget HTML que se usará por defecto cuando se renderize el campo en un formulario. **(~Aquí me surge la siguiente duda ¿No supone esto cierto acoplamiento entre las capas Modelo y Vista? _Conforme evolucione la aplicación lo comprobaremos_~)**
 3. Determinar los requisitos mínimos de validación, tanto en las vistas generadas por Django's admin como en los formularios generados automáticamente. **(~Idem de lo anterior con respecto al acomplamiento~)**
 
 ## Clave primaria
@@ -74,11 +74,15 @@ $ python manage.py migrate
 <a name="part2"></a> 
 
 ### Managers.  
-Vamos a pararnos aquí un poco, inicialmente diremos que los **Managers**  suministran a los modelos las operaciones de consulta de la base de datos.
+Vamos a pararnos aquí un poco, inicialmente diremos que los **Managers**  suministran a los modelos las operaciones para ejecutar operaciones de consulta sobre la base de datos.
 
-¿Cómo? Haciendo uso de relaciones de herencia propias de la metodología orientada a objetos. A grandes rasgos, Django implementa una clase Manager() definida como una interfaz donde se implementan  operaciones de consulta “típicas” a una base de datos (como pueden ser extraer todos los objetos de una tabla).
+¿Cómo? Haciendo uso de relaciones de herencia propias de la [metodología programación orientada a objetos](https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos). 
+
+A grandes rasgos:
+
+a) Existe definida en Django una clase llamada **Manager()** definida como una interfaz donde se implementan las operaciones de consulta “típicas” a una base de datos (como pueden ser extraer todos los objetos de una tabla).
     
-Cada vez que se crea un Modelo, por defecto Django asigna al mismo la interfaz Manager() de forma que esta nueva clase que define el Modelo pueda hacer uso de las operaciones de consulta definidas en dicha interfaz.
+b) Cada vez que se crea un Modelo, Django asigna por defecto al mismo la interfaz Manager() de forma que esta nueva clase que define el Modelo pueda hacer uso de las operaciones de consulta definidas en dicha interfaz.
 
 Así, nuestra clase hereda por defecto un atributo llamado **objects** que podemos utilizar para instanciar objetos desde la base de datos.
 
@@ -107,20 +111,20 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> Research.objects.get(pk=1)
 <Research: Research object>
 ```
-Por supuesto, podríamos crear _nuestros propios Managers_ heredando de los ya existentes, ampliando o modificando, si nuestras necesidades de consulta no están definidas por defecto.
+Por supuesto, podríamos crear _nuestros propios Managers_ heredando de los ya existentes, ampliando o modificando, si nuestras necesidades de consulta no están definidas en la clase Manager().
 
 ### Métodos 
 En las clases que definen nuestros Modelos podemos definir métodos (funciones) para mejorar su compresión o extaer información de los mismos que pudiera sernos útil.
 
 Por ejemplo, se recomienda definir el método __str__ para establecer  la representación que nos devuelve el Modelo al mostrar uno de sus objetos en consola. 
 
-Hemos visto que las consultas realizadas en el shell nos devuelven una representación de los objetos Research - Research: Research object - muy genérica que puede que no nos sea del todo útil >. Podemos cambiar esta situación definiendo en nuestro modelo el método __str__.
+Hemos visto que las consultas realizadas en el shell nos devuelven una representación de los objetos Research muy genérica que pudiera no sernos del todo útil (- Research: Research object -). Podemos cambiar esta situación definiendo en nuestro modelo el método __str__.
 
 ```python
 def __str__(self):
 	return self.description
 ```
-Ahora, nuestras consultas al shell son mucho más amigables.
+Ahora, nuestras consultas al shell serán mucho más amigables.
 
 ```bash
 >>> Research.objects.all()

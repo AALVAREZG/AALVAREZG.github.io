@@ -39,10 +39,10 @@ avatar: "/img/moon.jpg"
 # Change all these values or delete the ones you don't want.
 # Important: you must keep the "name" parameter, everything else you can remove
 author:
-  name: Antonio Álvarez
+  name: A. Álvarez
   facebook: yourname  # eg. daattali
   github: aalvarezg    # eg. daattali
-  twitter: aalvarez-dev   # eg. daattali
+  twitter: yourname   # eg. daattali
   reddit: yourname    # eg. daattali
   google-plus: +yourname   # eg. +DeanAttali or 109424658772469020925
   linkedin: yourname  # eg. daattali
